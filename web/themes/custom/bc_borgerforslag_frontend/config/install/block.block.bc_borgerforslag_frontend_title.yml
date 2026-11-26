@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  theme:
+    - bc_borgerforslag_frontend
+id: bc_borgerforslag_frontend_title
+theme: bc_borgerforslag_frontend
+region: title
+weight: 0
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'title'
+  label_display: '0'
+  provider: core
+visibility: {  }

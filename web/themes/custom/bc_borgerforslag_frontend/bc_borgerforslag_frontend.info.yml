@@ -1,0 +1,12 @@
+name: 'BC Borgerforslag – kommunal portal'
+type: theme
+description: 'Selvstændig offentlig brugerflade til BC Borgerforslag.'
+package: Bellcom
+core_version_requirement: ^11
+base theme: false
+libraries:
+  - bc_borgerforslag_frontend/global
+regions:
+  content: Indhold
+  highlighted: Beskeder
+  title: Sidetitel

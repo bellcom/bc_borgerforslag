@@ -1,0 +1,39 @@
+<div class="bc-portal">
+  <header class="bc-portal-header">
+    <div class="bc-portal-shell bc-portal-brandrow">
+      <a class="bc-portal-brand" href="{{ path('bc_borgerforslag.overview') }}">
+        <span class="bc-portal-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M8 36V17l8-5v24M16 36V8l8-4 8 4v28M32 36V12l8 5v19M5 36h38M21 36V22h6v14" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/></svg></span>
+        <span><strong>{{ bc_municipality }}</strong><small>Borgerforslag</small></span>
+      </a>
+      <nav class="bc-portal-account" aria-label="Konto">
+        {% if bc_admin %}<a href="{{ path('bc_borgerforslag.admin') }}">Administration</a>{% endif %}
+        {% if bc_logged_in %}<a href="{{ path('user.logout') }}">Log ud</a>
+        {% elseif bc_demo %}<a href="{{ path('user.login') }}">Log ind (demo)</a>{% endif %}
+        <a class="bc-portal-account-button" href="{{ path('bc_borgerforslag.mine') }}">Mine forslag <span aria-hidden="true">→</span></a>
+      </nav>
+    </div>
+    <div class="bc-portal-nav">
+      <nav class="bc-portal-shell" aria-label="Hovedmenu">
+        <a href="{{ path('bc_borgerforslag.overview') }}"{% if bc_overview %} aria-current="page"{% endif %}>Alle forslag</a>
+        <a href="{{ path('bc_borgerforslag.create') }}"{% if bc_create %} aria-current="page"{% endif %}>Opret forslag</a>
+        <a href="{{ path('bc_borgerforslag.overview') }}#bc-bf-guide">Sådan fungerer det</a>
+      </nav>
+    </div>
+  </header>
+  {% if bc_demo %}<div class="bc-portal-demo"><div class="bc-portal-shell"><strong>Demonstrationsløsning</strong> · Alle identiteter og forslag er fiktive.</div></div>{% endif %}
+  <main id="main-content" class="bc-portal-main bc-portal-shell">
+    {{ page.highlighted }}
+    {% if not bc_overview and not bc_detail %}
+      <div class="bc-portal-breadcrumb"><a href="{{ path('bc_borgerforslag.overview') }}">Borgerforslag</a><span aria-hidden="true"> / </span></div>
+      {{ page.title }}
+    {% endif %}
+    <div class="{% if not bc_overview and not bc_detail %}bc-portal-inner{% endif %}">{{ page.content }}</div>
+  </main>
+  <footer class="bc-portal-footer">
+    <div class="bc-portal-shell bc-portal-footer-grid">
+      <div><strong>{{ bc_municipality }}</strong><p>Borgerforslag · Din stemme i lokaldemokratiet.</p></div>
+      <nav aria-label="Genveje"><a href="{{ path('bc_borgerforslag.overview') }}">Alle forslag</a><a href="{{ path('bc_borgerforslag.create') }}">Opret forslag</a><a href="{{ path('bc_borgerforslag.overview') }}#bc-bf-guide">Sådan fungerer det</a></nav>
+      <div><strong>BC Borgerforslag</strong><p>En digital løsning fra Bellcom{% if bc_demo %} · POC{% endif %}.</p></div>
+    </div>
+  </footer>
+</div>

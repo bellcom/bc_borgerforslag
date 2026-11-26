@@ -1,16 +1,27 @@
 <div class="bc-bf">
   {% if demo %}<p class="bc-bf-demo" role="status">DEMO – fiktive identiteter. Ikke til rigtige borgerforslag.</p>{% endif %}
-  <div class="bc-bf-hero">
+  <div class="bc-bf-hero"><div>
     <p class="bc-bf-eyebrow">{{ municipality }} · Lokaldemokrati</p>
-    <h2>Din idé kan gøre en forskel</h2>
+    <h1>Din idé kan gøre en forskel</h1>
     <p>Har du et forslag til, hvordan vi sammen kan gøre kommunen bedre? Her kan du stille et forslag, støtte andres idéer og følge den politiske behandling.</p>
     <div class="bc-bf-actions"><a class="bc-bf-button" href="{{ create_url }}">Opret borgerforslag</a><a class="bc-bf-button bc-bf-secondary" href="#bc-bf-active">Se og støt forslag</a> <a class="bc-bf-link" href="{{ mine_url }}">Mine forslag</a></div>
+    </div>
+    <svg class="bc-bf-hero-art" viewBox="0 0 320 230" aria-hidden="true" focusable="false" fill="none">
+      <circle cx="163" cy="111" r="95" stroke="currentColor" stroke-width="1" opacity=".3"/>
+      <path d="M30 179h260M42 179V96l43-22 43 22v83M140 179V63l42-28 42 28v116M236 179v-55l39-20v75M55 115h17m13 0h17m-47 20h17m13 0h17M155 88h16m23 0h16m-55 23h16m23 0h16m-33 68v-38h22v38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M24 50h91a12 12 0 0 1 12 12v23a12 12 0 0 1-12 12H76l-18 17V97H24a12 12 0 0 1-12-12V62a12 12 0 0 1 12-12Z" fill="#184a71" stroke="currentColor" stroke-width="2.5"/>
+      <path d="M34 67h68M34 80h49" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="260" cy="50" r="26" fill="#184a71" stroke="currentColor" stroke-width="2.5"/><path d="m248 50 8 8 16-17" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
   </div>
   <div class="bc-bf-rules">
     <div><strong>{{ minimum_age }} år</strong><span>Minimumsalder</span></div>
     <div><strong>{{ threshold }}</strong><span>Støtter som udgangspunkt</span></div>
     <div><strong>{{ days }} dage</strong><span>Afstemningsperiode</span></div>
   </div>
+  <nav aria-label="Forslagsstatus"><ul class="bc-bf-jump">
+    {% for key, group in groups %}<li><a href="#bc-bf-{{ key }}">{{ group.title }} ({{ group.items|length }})</a></li>{% endfor %}
+  </ul></nav>
   {% for key, group in groups %}
     <section class="bc-bf-section" id="bc-bf-{{ key }}">
       <h2>{{ group.title }} <span class="bc-bf-count">{{ group.items|length }}</span></h2>
@@ -34,4 +45,13 @@
       {% else %}<p class="bc-bf-empty">Der er endnu ingen forslag i denne kategori.</p>{% endif %}
     </section>
   {% endfor %}
+  <section class="bc-bf-guide" id="bc-bf-guide">
+    <h2>Sådan fungerer borgerforslag</h2>
+    <ol class="bc-bf-steps">
+      <li><span class="bc-bf-step-number" aria-hidden="true">1</span><strong>Opret et forslag</strong>Beskriv din idé. Både borgere og virksomheder kan stille forslag, når de opfylder kommunens regler.</li>
+      <li><span class="bc-bf-step-number" aria-hidden="true">2</span><strong>Saml opbakning</strong>Kommunen vurderer forslaget. Efter offentliggørelse kan verificerede privatpersoner støtte én gang hver.</li>
+      <li><span class="bc-bf-step-number" aria-hidden="true">3</span><strong>Følg behandlingen</strong>Når forslaget når det krævede antal støtter, går det videre til kommunens politiske behandling.</li>
+    </ol>
+    <div class="bc-bf-actions"><a class="bc-bf-button" href="{{ create_url }}">Opret dit forslag</a></div>
+  </section>
 </div>

@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Presentation helpers for the standalone municipal portal.
+ */
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function bc_borgerforslag_frontend_preprocess_page(array &$variables): void {
+  $config = \Drupal::config('bc_borgerforslag.settings');
+  $variables['bc_municipality'] = $config->get('municipality') ?: 'Demokommune';
+  $variables['bc_demo'] = (bool) $config->get('demo_mode');
+  $route = \Drupal::routeMatch()->getRouteName();
+  $variables['bc_overview'] = $route === 'bc_borgerforslag.overview';
+  $variables['bc_detail'] = $route === 'bc_borgerforslag.detail';
+  $variables['bc_create'] = $route === 'bc_borgerforslag.create';
+  $variables['bc_mine'] = $route === 'bc_borgerforslag.mine';
+  $variables['bc_logged_in'] = \Drupal::currentUser()->isAuthenticated();
+  $variables['bc_admin'] = \Drupal::currentUser()->hasPermission('administer bc borgerforslag');
+  // Header contains configuration and user-dependent links. Do not reuse
+  // a cached header across authentication or permission boundaries.
+  $variables['page']['#cache']['contexts'][] = 'user.roles:authenticated';
+  $variables['page']['#cache']['contexts'][] = 'user.permissions';
+  $variables['page']['#cache']['contexts'][] = 'route';
+  $variables['page']['#cache']['tags'][] = 'config:bc_borgerforslag.settings';
+}

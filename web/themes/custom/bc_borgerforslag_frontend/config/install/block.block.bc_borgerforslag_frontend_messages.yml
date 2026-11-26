@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  theme:
+    - bc_borgerforslag_frontend
+  module:
+    - system
+id: bc_borgerforslag_frontend_messages
+theme: bc_borgerforslag_frontend
+region: highlighted
+weight: 0
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

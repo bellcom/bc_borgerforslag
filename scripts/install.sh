@@ -14,7 +14,8 @@ if [[ -f composer.lock ]]; then composer install --no-interaction --prefer-dist;
 php scripts/check-empty-db.php
 vendor/bin/drush --uri="$BC_SITE_URI" site:install standard --db-url="$BC_DB_URL" --site-name='BC Borgerforslag' --account-name=bc_admin --account-pass="$BC_ADMIN_PASSWORD" -y
 vendor/bin/drush --uri="$BC_SITE_URI" en bc_borgerforslag admin_toolbar admin_toolbar_tools -y
-vendor/bin/drush --uri="$BC_SITE_URI" theme:enable gin -y
+vendor/bin/drush --uri="$BC_SITE_URI" theme:enable gin bc_borgerforslag_frontend -y
+vendor/bin/drush --uri="$BC_SITE_URI" cset system.theme default bc_borgerforslag_frontend -y
 vendor/bin/drush --uri="$BC_SITE_URI" cset system.theme admin gin -y
 vendor/bin/drush --uri="$BC_SITE_URI" cset system.site page.front /borgerforslag -y
 vendor/bin/drush --uri="$BC_SITE_URI" cset system.date timezone.default Europe/Copenhagen -y
