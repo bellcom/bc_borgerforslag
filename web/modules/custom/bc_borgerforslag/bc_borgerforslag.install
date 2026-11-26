@@ -1,0 +1,71 @@
+<?php
+
+/**
+ * @file
+ * Database schema for BC Borgerforslag.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function bc_borgerforslag_schema(): array {
+  $int = ['type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0];
+  return [
+    'bc_borgerforslag_proposal' => [
+      'description' => 'Proposals and snapshot of voting rules.',
+      'fields' => [
+        'id' => ['type' => 'serial', 'unsigned' => TRUE, 'not null' => TRUE],
+        'title' => ['type' => 'varchar', 'length' => 200, 'not null' => TRUE],
+        'body' => ['type' => 'text', 'size' => 'big', 'not null' => TRUE],
+        'author_type' => ['type' => 'varchar', 'length' => 20, 'not null' => TRUE, 'default' => 'person'],
+        'owner_key' => ['type'=>'varchar','length'=>64,'not null'=>TRUE,'default'=>''],
+        'contact_email' => ['type'=>'varchar','length'=>254,'not null'=>TRUE,'default'=>''],
+        'meeting_date' => ['type'=>'varchar','length'=>10,'not null'=>TRUE,'default'=>''],
+        'agenda_url' => ['type'=>'varchar','length'=>1024,'not null'=>TRUE,'default'=>''],
+        'author_name' => ['type' => 'varchar', 'length' => 200, 'not null' => TRUE],
+        'status' => ['type' => 'varchar', 'length' => 20, 'not null' => TRUE, 'default' => 'pending'],
+        'created' => $int,
+        'published' => $int,
+        'deadline' => $int,
+        'threshold' => $int,
+        'voting_days' => $int,
+        'decision' => ['type' => 'text', 'size' => 'normal', 'not null' => TRUE],
+      ],
+      'primary key' => ['id'],
+      'indexes' => ['status_deadline' => ['status', 'deadline'], 'owner_key'=>['owner_key']],
+    ],
+    'bc_borgerforslag_history' => [
+      'fields' => [
+        'id' => ['type'=>'serial','unsigned'=>TRUE,'not null'=>TRUE],
+        'proposal_id' => $int, 'created' => $int, 'uid' => $int,
+        'from_status' => ['type'=>'varchar','length'=>20,'not null'=>TRUE],
+        'to_status' => ['type'=>'varchar','length'=>20,'not null'=>TRUE],
+      ],
+      'primary key' => ['id'],
+      'indexes' => ['proposal_id'=>['proposal_id']],
+    ],
+    'bc_borgerforslag_vote' => [
+      'description' => 'One pseudonymous support record per proposal and verified identity.',
+      'fields' => [
+        'proposal_id' => $int,
+        'voter_key' => ['type' => 'varchar', 'length' => 64, 'not null' => TRUE],
+        'created' => $int,
+      ],
+      'primary key' => ['proposal_id', 'voter_key'],
+    ],
+  ];
+}
+
+/** Add organisation type for existing POC. */
+function bc_borgerforslag_update_11001(): void {
+  $schema = \Drupal::database()->schema();
+  if (!$schema->fieldExists('bc_borgerforslag_proposal', 'author_type')) { $schema->addField('bc_borgerforslag_proposal', 'author_type', ['type'=>'varchar','length'=>20,'not null'=>TRUE,'default'=>'person']); }
+  $fields = bc_borgerforslag_schema()['bc_borgerforslag_proposal']['fields'];
+  foreach (['owner_key','contact_email','meeting_date','agenda_url'] as $name) { if (!$schema->fieldExists('bc_borgerforslag_proposal',$name)) { $schema->addField('bc_borgerforslag_proposal',$name,$fields[$name]); } }
+  if (!$schema->indexExists('bc_borgerforslag_proposal','owner_key')) { $schema->addIndex('bc_borgerforslag_proposal','owner_key',['owner_key'],bc_borgerforslag_schema()['bc_borgerforslag_proposal']); }
+  if (!$schema->tableExists('bc_borgerforslag_history')) { $schema->createTable('bc_borgerforslag_history', bc_borgerforslag_schema()['bc_borgerforslag_history']); }
+  $config = \Drupal::configFactory()->getEditable('bc_borgerforslag.settings');
+  $config->set('allow_organisations', TRUE)->set('local_organisations', TRUE)->set('notifications_enabled',FALSE)->set('notification_admin_email','')->save();
+  // Old data may contain demo votes. Never promote this DB to live.
+  \Drupal::state()->set('bc_borgerforslag.demo_used', TRUE);
+}

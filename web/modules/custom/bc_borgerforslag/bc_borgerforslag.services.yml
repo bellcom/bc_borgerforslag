@@ -1,0 +1,10 @@
+services:
+  bc_borgerforslag.identity:
+    class: Drupal\bc_borgerforslag\Identity\DemoIdentity
+    arguments: ['@current_user', '@config.factory']
+  bc_borgerforslag.store:
+    class: Drupal\bc_borgerforslag\ProposalStore
+    arguments: ['@database', '@lock', '@datetime.time', '@config.factory', '@logger.factory']
+  bc_borgerforslag.participation:
+    class: Drupal\bc_borgerforslag\Identity\Participation
+    arguments: ['@bc_borgerforslag.identity', '@config.factory']

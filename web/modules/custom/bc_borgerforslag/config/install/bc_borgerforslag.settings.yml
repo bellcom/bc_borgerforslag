@@ -1,0 +1,10 @@
+municipality: 'Demokommune'
+municipality_code: '0706'
+minimum_age: 15
+threshold: 250
+voting_days: 180
+demo_mode: false
+allow_organisations: true
+local_organisations: true
+notifications_enabled: false
+notification_admin_email: ''

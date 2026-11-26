@@ -1,0 +1,25 @@
+<div class="bc-bf">
+  {% if demo %}<p class="bc-bf-demo" role="status">DEMO – fiktive identiteter. Ikke til rigtige borgerforslag.</p>{% endif %}
+  <a class="bc-bf-link" href="{{ overview_url }}">← Alle borgerforslag</a>
+  <div class="bc-bf-detail">
+    <article>
+      <span class="bc-bf-status bc-bf-status--{{ proposal.status }}">{{ proposal.status_label }}</span>
+      <p class="bc-bf-meta">{{ proposal.author_type == 'organisation' ? 'Virksomhedsforslag' : 'Borgerforslag' }} nr. {{ proposal.id }} · Stillet af {{ proposal.author_name }}</p>
+      <h2>{{ proposal.title }}</h2>
+      <div class="bc-bf-body">{{ proposal.body }}</div>
+      {% if proposal.meeting_date %}<p>Politisk behandling: {{ proposal.meeting_date }}</p>{% endif %}
+      {% if proposal.agenda_url %}<p><a href="{{ proposal.agenda_url }}">Dagsorden eller referat</a></p>{% endif %}
+      {% if proposal.decision %}<h3>Kommunens beslutning</h3><div class="bc-bf-body">{{ proposal.decision }}</div>{% endif %}
+    </article>
+    <aside class="bc-bf-card bc-bf-support">
+      <h3>Opbakning til forslaget</h3>
+      <div class="bc-bf-large">{{ proposal.votes }}</div>
+      <p>af {{ proposal.threshold }} nødvendige støtter</p>
+      <progress max="100" value="{{ proposal.progress }}" aria-label="{{ proposal.votes }} af {{ proposal.threshold }} støtter"></progress>
+      {% if proposal.status == 'active' %}<p>Støt senest {{ proposal.deadline_label }}</p>{% endif %}
+      {{ vote_form }}
+      {% if message %}<p>{{ message }}</p>{% endif %}
+      {% if login_url %}<a class="bc-bf-button" href="{{ login_url }}">Log ind for at støtte</a>{% endif %}
+    </aside>
+  </div>
+</div>

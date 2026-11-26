@@ -1,0 +1,36 @@
+/* Scoped to BC Borgerforslag; no external assets or global theme overrides. */
+.bc-bf { --bc-ink:#172f35; --bc-green:#155e59; --bc-muted:#455e65; --bc-line:#d8e2e1; --bc-soft:#edf5f2; color:var(--bc-ink); max-width:76rem; margin-inline:auto; line-height:1.55; }
+.bc-bf *, .bc-bf *::before, .bc-bf *::after { box-sizing:border-box; }
+.bc-bf h2,.bc-bf h3 { color:var(--bc-ink); line-height:1.25; }
+.bc-bf h2 { font-size:clamp(1.5rem, 3vw, 2.2rem); margin:0 0 1rem; }
+.bc-bf h3 { font-size:1.2rem; margin:.8rem 0; }
+.bc-bf a:focus-visible { outline:3px solid #b25400; outline-offset:4px; }
+.bc-bf-hero { padding:clamp(1.5rem,5vw,4rem); border-radius:1rem; background:var(--bc-soft); border:1px solid var(--bc-line); }
+.bc-bf-hero h2 { font-size:clamp(2rem,4vw,3.4rem); max-width:20ch; }
+.bc-bf-hero p { max-width:65ch; }
+.bc-bf-eyebrow { font-weight:700; letter-spacing:.08em; text-transform:uppercase; font-size:.8rem; color:var(--bc-green); }
+.bc-bf-actions { display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.5rem; }
+.bc-bf .bc-bf-button { background:var(--bc-green); color:#fff; font-weight:700; text-decoration:none; padding:.75rem 1.15rem; display:inline-block; border:2px solid var(--bc-green); border-radius:.4rem; }
+.bc-bf .bc-bf-secondary { background:transparent; color:var(--bc-green); }
+.bc-bf-rules { display:grid; grid-template-columns:repeat(auto-fit,minmax(8rem,1fr)); gap:1rem; margin:1.5rem 0 3rem; }
+.bc-bf-rules div { padding:1rem; border:1px solid var(--bc-line); border-radius:.6rem; }
+.bc-bf-rules strong,.bc-bf-rules span { display:block; }
+.bc-bf-rules strong { font-size:1.35rem; }
+.bc-bf-rules span,.bc-bf-meta { color:var(--bc-muted); font-size:.9rem; }
+.bc-bf-section { margin:2.5rem 0; scroll-margin-top:2rem; }
+.bc-bf-count { font-size:.85rem; vertical-align:middle; padding:.25rem .55rem; background:var(--bc-soft); border-radius:2rem; }
+.bc-bf-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr)); gap:1rem; }
+.bc-bf-card { border:1px solid var(--bc-line); background:white; padding:1.3rem; border-radius:.7rem; display:flex; flex-direction:column; min-width:0; overflow-wrap:anywhere; }
+.bc-bf-card h3 a,.bc-bf-link { color:var(--bc-green); font-weight:700; text-decoration:underline; text-underline-offset:.2em; }
+.bc-bf-card-footer { margin-top:auto; }
+.bc-bf-status { align-self:flex-start; display:inline-block; padding:.2rem .65rem; background:#e9efed; color:#274b46; font-size:.85rem; border-radius:2rem; font-weight:700; }
+.bc-bf-status--political,.bc-bf-status--reached { background:#e9eef8; color:#23447b; }
+.bc-bf-status--closed { background:#eee; color:#454545; }
+.bc-bf-meter { display:flex; gap:.5rem; justify-content:space-between; font-size:.9rem; }
+.bc-bf progress { width:100%; height:.65rem; accent-color:var(--bc-green); display:block; margin:.6rem 0 1rem; }
+.bc-bf-empty { border:1px dashed var(--bc-line); padding:1.25rem; color:var(--bc-muted); border-radius:.6rem; }
+.bc-bf-demo { padding:.75rem 1rem; background:#fff3d4; color:#63420a; border:1px solid #cfab5d; border-radius:.4rem; }
+.bc-bf-detail { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr); gap:2rem; margin-top:2rem; align-items:start; }
+.bc-bf-body { white-space:pre-wrap; overflow-wrap:anywhere; margin-bottom:2rem; }
+.bc-bf-large { font-size:3rem; line-height:1.2; color:var(--bc-green); font-weight:700; }
+@media (max-width:48rem) { .bc-bf-detail { grid-template-columns:1fr; } }

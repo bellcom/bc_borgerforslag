@@ -1,0 +1,33 @@
+name: POC checks
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: ci-root-only
+          MARIADB_DATABASE: bc_test
+          MARIADB_USER: bc_test
+          MARIADB_PASSWORD: ci-test-only
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, dom, soap, gd, pdo_mysql, curl, intl, zip
+          tools: composer:v2
+      - run: composer validate --no-check-lock
+      - run: composer install --no-interaction --prefer-dist
+      - run: find web/modules/custom scripts -type f \( -name '*.php' -o -name '*.install' -o -name '*.module' \) -print0 | xargs -0 -n1 php -l
+      - run: php web/modules/custom/bc_borgerforslag/tests/eligibility-smoke.php
+      - run: vendor/bin/drush site:install standard --db-url=mysql://bc_test:ci-test-only@127.0.0.1/bc_test --account-pass=ci-test-only -y
+      - run: vendor/bin/drush en bc_borgerforslag -y && vendor/bin/drush php:script "$PWD/scripts/setup-demo.php" && vendor/bin/drush cr
+      - run: vendor/bin/drush php:script "$PWD/scripts/smoke-drupal.php"
+      - run: vendor/bin/drush php:script "$PWD/scripts/smoke-person.php"

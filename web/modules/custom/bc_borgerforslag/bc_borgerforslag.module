@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Theme and cron hooks for BC Borgerforslag.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function bc_borgerforslag_theme(): array {
+  return [
+    'bc_borgerforslag_overview' => [
+      'variables' => ['municipality' => '', 'threshold' => 0, 'days' => 0, 'minimum_age' => 0, 'demo' => FALSE, 'create_url' => '', 'mine_url' => '', 'groups' => []],
+      'template' => 'bc-borgerforslag-overview',
+    ],
+    'bc_borgerforslag_detail' => [
+      'variables' => ['proposal' => [], 'vote_form' => [], 'message' => '', 'login_url' => '', 'demo' => FALSE, 'overview_url' => ''],
+      'template' => 'bc-borgerforslag-detail',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_cron().
+ */
+function bc_borgerforslag_cron(): void {
+  \Drupal::service('bc_borgerforslag.store')->expire();
+}
+
+/** Implements hook_mail(). */
+function bc_borgerforslag_mail($key, &$message, $params): void {
+  if ($key !== 'status') { return; }
+  $labels = ['created'=>'Forslag modtaget','active'=>'Forslag offentliggjort','rejected'=>'Forslag afvist','reached'=>'Stemmemål nået','political'=>'Politisk behandling','adopted'=>'Forslag vedtaget','declined'=>'Forslag politisk afvist','closed'=>'Forslag afsluttet','expired'=>'Afstemningen er udløbet'];
+  $message['subject'] = 'Borgerforslag: ' . ($labels[$params['event']] ?? 'Status ændret');
+  $message['body'][] = 'Der er nyt vedrørende forslag nr. ' . (int)$params['id'] . '. Log ind på hjemmesiden for at læse mere.';
+  $message['body'][] = \Drupal\Core\Url::fromRoute('bc_borgerforslag.mine', [], ['absolute'=>TRUE])->toString();
+}

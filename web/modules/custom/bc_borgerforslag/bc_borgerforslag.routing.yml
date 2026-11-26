@@ -1,0 +1,65 @@
+bc_borgerforslag.overview:
+  path: '/borgerforslag'
+  defaults:
+    _controller: '\Drupal\bc_borgerforslag\Controller\ProposalController::overview'
+    _title: 'Borgerforslag'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: true
+bc_borgerforslag.detail:
+  path: '/borgerforslag/{id}'
+  defaults:
+    _controller: '\Drupal\bc_borgerforslag\Controller\ProposalController::detail'
+    _title: 'Borgerforslag'
+  requirements:
+    _permission: 'access content'
+    id: '\d+'
+  options:
+    no_cache: true
+bc_borgerforslag.create:
+  path: '/borgerforslag/opret'
+  defaults:
+    _form: '\Drupal\bc_borgerforslag\Form\ProposalForm'
+    _title: 'Opret borgerforslag'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: true
+bc_borgerforslag.admin:
+  path: '/admin/content/bc-borgerforslag'
+  defaults:
+    _form: '\Drupal\bc_borgerforslag\Form\ModerationForm'
+    _title: 'Administrer borgerforslag'
+  requirements:
+    _permission: 'administer bc borgerforslag'
+  options:
+    _admin_route: true
+bc_borgerforslag.settings:
+  path: '/admin/config/content/bc-borgerforslag'
+  defaults:
+    _form: '\Drupal\bc_borgerforslag\Form\SettingsForm'
+    _title: 'Indstillinger for borgerforslag'
+  requirements:
+    _permission: 'administer bc borgerforslag'
+  options:
+    _admin_route: true
+
+bc_borgerforslag.export:
+  path: '/admin/content/bc-borgerforslag/export'
+  defaults:
+    _controller: '\Drupal\bc_borgerforslag\Controller\ExportController::csv'
+  requirements:
+    _permission: 'administer bc borgerforslag'
+  options:
+    no_cache: true
+
+bc_borgerforslag.mine:
+  path: '/borgerforslag/mine'
+  defaults:
+    _controller: '\Drupal\bc_borgerforslag\Controller\MyProposalsController::overview'
+    _title: 'Mine forslag'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: true

@@ -1,0 +1,66 @@
+{
+  "name": "bellcom/bc-borgerforslag-project",
+  "description": "Standalone Drupal 11 citizen proposals POC",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "php": "~8.4.0",
+    "composer/installers": "^2.3",
+    "drupal/core-recommended": "^11.3",
+    "drupal/core-composer-scaffold": "^11.3",
+    "drush/drush": "^13.8",
+    "drupal/admin_toolbar": "^3.6",
+    "drupal/gin": "^5.0",
+    "drupal/key": "^1.23",
+    "drupal/encrypt": "^3.3",
+    "drupal/advancedqueue": "^1.2",
+    "drupal/simplesamlphp_auth": "^4.1",
+    "drupal/webform": "^6.3",
+    "os2web/os2web_nemlogin": "^1.3",
+    "os2web/os2web_datalookup": "^3.5",
+    "os2web/os2web_key": "^1.0@RC",
+    "os2web/os2web_audit": "^1.3"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true,
+      "drupal/core-composer-scaffold": true,
+      "php-http/discovery": true,
+      "simplesamlphp/composer-module-installer": true,
+      "simplesamlphp/composer-xmlprovider-installer": true
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "drupal-scaffold": {
+      "locations": {
+        "web-root": "web/"
+      }
+    },
+    "installer-paths": {
+      "web/core": [
+        "type:drupal-core"
+      ],
+      "web/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "web/themes/contrib/{$name}": [
+        "type:drupal-theme"
+      ],
+      "web/profiles/contrib/{$name}": [
+        "type:drupal-profile"
+      ],
+      "web/libraries/{$name}": [
+        "type:drupal-library"
+      ]
+    }
+  }
+}

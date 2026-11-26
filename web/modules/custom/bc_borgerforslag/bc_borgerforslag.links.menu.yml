@@ -1,0 +1,8 @@
+bc_borgerforslag.admin:
+  title: 'Borgerforslag'
+  parent: system.admin_content
+  route_name: bc_borgerforslag.admin
+bc_borgerforslag.settings:
+  title: 'BC Borgerforslag'
+  parent: system.admin_config_content
+  route_name: bc_borgerforslag.settings

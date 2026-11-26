@@ -1,0 +1,13 @@
+participate in bc borgerforslag demo:
+  title: 'Deltag i borgerforslag med DEMO-identitet'
+  restrict access: true
+administer bc borgerforslag:
+  title: 'Administrer borgerforslag og indstillinger'
+  restrict access: true
+
+participate as bc borgerforslag demo organisation:
+  title: 'DEMO: participate as organisation'
+  restrict access: true
+participate in bc borgerforslag demo person:
+  title: 'DEMO: participate as private person'
+  restrict access: true

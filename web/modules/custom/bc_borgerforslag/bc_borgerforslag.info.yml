@@ -1,0 +1,9 @@
+name: 'BC Borgerforslag (POC)'
+type: module
+description: 'Kommunale borgerforslag med godkendelse, støtte og politisk behandling.'
+package: Bellcom
+version: '0.2.0-poc'
+core_version_requirement: ^11
+configure: bc_borgerforslag.settings
+dependencies:
+  - drupal:user

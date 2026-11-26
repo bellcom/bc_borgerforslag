@@ -1,0 +1,34 @@
+bc_borgerforslag.settings:
+  type: config_object
+  label: 'Borgerforslag settings'
+  mapping:
+    municipality:
+      type: string
+      label: 'Municipality name'
+    municipality_code:
+      type: string
+      label: 'Municipality code'
+    minimum_age:
+      type: integer
+      label: 'Minimum age'
+    threshold:
+      type: integer
+      label: 'Support threshold'
+    voting_days:
+      type: integer
+      label: 'Voting period in days'
+    demo_mode:
+      type: boolean
+      label: 'Enable demo participation'
+    allow_organisations:
+      type: boolean
+      label: 'Allow organisation proposals'
+    local_organisations:
+      type: boolean
+      label: 'Require local organisation'
+    notifications_enabled:
+      type: boolean
+      label: 'Enable notification queue'
+    notification_admin_email:
+      type: email
+      label: 'Administrator mail'

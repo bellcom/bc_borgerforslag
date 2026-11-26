@@ -1,0 +1,37 @@
+<div class="bc-bf">
+  {% if demo %}<p class="bc-bf-demo" role="status">DEMO – fiktive identiteter. Ikke til rigtige borgerforslag.</p>{% endif %}
+  <div class="bc-bf-hero">
+    <p class="bc-bf-eyebrow">{{ municipality }} · Lokaldemokrati</p>
+    <h2>Din idé kan gøre en forskel</h2>
+    <p>Har du et forslag til, hvordan vi sammen kan gøre kommunen bedre? Her kan du stille et forslag, støtte andres idéer og følge den politiske behandling.</p>
+    <div class="bc-bf-actions"><a class="bc-bf-button" href="{{ create_url }}">Opret borgerforslag</a><a class="bc-bf-button bc-bf-secondary" href="#bc-bf-active">Se og støt forslag</a> <a class="bc-bf-link" href="{{ mine_url }}">Mine forslag</a></div>
+  </div>
+  <div class="bc-bf-rules">
+    <div><strong>{{ minimum_age }} år</strong><span>Minimumsalder</span></div>
+    <div><strong>{{ threshold }}</strong><span>Støtter som udgangspunkt</span></div>
+    <div><strong>{{ days }} dage</strong><span>Afstemningsperiode</span></div>
+  </div>
+  {% for key, group in groups %}
+    <section class="bc-bf-section" id="bc-bf-{{ key }}">
+      <h2>{{ group.title }} <span class="bc-bf-count">{{ group.items|length }}</span></h2>
+      {% if group.items %}
+      <div class="bc-bf-grid">
+        {% for item in group.items %}
+          <article class="bc-bf-card">
+            <span class="bc-bf-status bc-bf-status--{{ item.status }}">{{ item.status_label }}</span>
+            <p class="bc-bf-meta">{{ item.author_type == 'organisation' ? 'Virksomhedsforslag' : 'Borgerforslag' }} · {{ item.author_name }}</p>
+            <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+            <p>{{ item.body|length > 170 ? item.body|slice(0, 170) ~ '…' : item.body }}</p>
+            <div class="bc-bf-card-footer">
+              <div class="bc-bf-meter"><strong>{{ item.votes }} / {{ item.threshold }} støtter</strong><span>{{ item.progress }} %</span></div>
+              <progress max="100" value="{{ item.progress }}" aria-label="{{ item.votes }} af {{ item.threshold }} støtter"></progress>
+              {% if item.status == 'active' %}<p class="bc-bf-meta">Frist: {{ item.deadline_label }}</p>{% endif %}
+              <a class="bc-bf-link" href="{{ item.url }}">Læs forslaget <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+      {% else %}<p class="bc-bf-empty">Der er endnu ingen forslag i denne kategori.</p>{% endif %}
+    </section>
+  {% endfor %}
+</div>
