@@ -35,7 +35,8 @@
       "drupal/core-composer-scaffold": true,
       "php-http/discovery": true,
       "simplesamlphp/composer-module-installer": true,
-      "simplesamlphp/composer-xmlprovider-installer": true
+      "simplesamlphp/composer-xmlprovider-installer": true,
+      "symfony/runtime": true
     },
     "sort-packages": true
   },
