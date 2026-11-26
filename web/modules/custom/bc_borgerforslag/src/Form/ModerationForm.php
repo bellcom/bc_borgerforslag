@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class ModerationForm extends FormBase {
 
-  public function __construct(private ProposalStore $store) {}
+  public function __construct(protected ProposalStore $store) {}
 
   public static function create(ContainerInterface $container): static {
     return new static($container->get('bc_borgerforslag.store'));

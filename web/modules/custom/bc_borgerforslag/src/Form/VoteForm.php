@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 final class VoteForm extends FormBase {
 
-  public function __construct(private ProposalStore $store, private Participation $participation) {}
+  public function __construct(protected ProposalStore $store, protected Participation $participation) {}
 
   public static function create(ContainerInterface $container): static {
     return new static($container->get('bc_borgerforslag.store'), $container->get('bc_borgerforslag.participation'));
